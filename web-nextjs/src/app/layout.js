@@ -13,38 +13,48 @@ export default async function RootLayout({ children }) {
   return (
     <html
       style={{
+        height: '100%',
+        width: '100%',
+        margin: '5px',
+        border: '10px green solid',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
-        backgroundColor: 'beige',
-        margin: '10px',
-        padding: '5px',
-        border: '2px black solid'
+        
+        // backgroundColor: 'beige',
+        // margin: '10px',
+        // padding: '5px',
       }}
     >
       <body
         style={{
+          height: '100%',
+          width: '100%',
+          margin: '5px',
+          border: '10px black solid',
           display: 'flex',
           flexDirection: 'column',
-          height: '100%',
-          backgroundColor: 'red',
-          margin: '10px',
-          padding: '15px',
-          border: '2px yellow solid'
+          // backgroundColor: 'red',
+          // margin: '10px',
+          // padding: '15px',
+          
         }}
       >
         <div
           style={{
+            height: '100%',
+            width: '100%',
+            margin: '5px',
+            border: '10px skyblue solid',
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
-            backgroundColor: 'pink'
+            // backgroundColor: 'pink'
           }}
         >
           <div
             style={{
+              width: '100%',
               flex: 1,
-              backgroundColor: 'olive',
+              backgroundColor: 'red',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
@@ -54,8 +64,9 @@ export default async function RootLayout({ children }) {
           </div>
           <div
             style={{
-              flex: 2,
-              backgroundColor: '#123456',
+              width: '100%',
+              flex: 3,
+              backgroundColor: 'orange',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
@@ -65,19 +76,21 @@ export default async function RootLayout({ children }) {
           </div>
           <div
             style={{
-              flex: 5,
-              backgroundColor: '#789abc',
+              width: '100%',
+              flex: 21,
+              backgroundColor: 'yellow',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             {children}
           </div>
           <div
             style={{
-              flex: 1,
-              backgroundColor: '#def123',
+              width: '100%',
+              flex: 3,
+              backgroundColor: 'green',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'

@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <div
             style={{
-                backgroundColor: 'orange',
+                // backgroundColor: 'orange',
             }}
         >
             <div>info1</div>

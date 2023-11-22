@@ -4,7 +4,7 @@ export default function FilterBar() {
     return (
         <div
             style={{
-                backgroundColor: 'yellow',
+                // backgroundColor: 'yellow',
             }}
         >
             FilterBar
