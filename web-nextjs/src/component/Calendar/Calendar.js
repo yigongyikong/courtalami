@@ -1,8 +1,17 @@
 import React from 'react';
 import styles from './calendar.module.css';
 import DayBar from './DayBar';
+import { AucCourtCrawler } from '@/lib/utils';
 
-export default function Calendar() {
+export default async function Calendar() {
+
+    const resp = await AucCourtCrawler(11, 'tennis1');
+
+    console.log(`\n date : ${resp.date} \n`);
+    // console.log(`\n date[0] : ${resp.date[0]} \n`);
+    // console.log(`\n date[29] : ${resp.date[29]} \n`);
+    // console.log(`\n date.len : ${resp.date.length} \n`);
+
     return (
         <div
             style={{
@@ -26,11 +35,12 @@ export default function Calendar() {
                     alignItems: 'center'
                 }}
             >
-                ThisMonth
+                {resp.nowYear} 년 {resp.nowMonth} 월
                 <div className={styles.calFrame}>
-                    <DayBar />
-                    <DayBar />
-                    <DayBar />
+                    {resp.date.map( (day) => {
+                        // console.log(`\n day : ${day} \n`)
+                        return <DayBar d={day}  />
+                    })}
                 </div>
             </div>
             <div
@@ -45,7 +55,7 @@ export default function Calendar() {
                     alignItems: 'center'
                 }}
             >
-                NextMonth
+                {resp.nowYear} 년 {resp.nowMonth+1} 월
                 <div className={styles.calFrame}>
                     <div></div>
                 </div>
