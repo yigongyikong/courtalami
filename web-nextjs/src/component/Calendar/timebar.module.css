@@ -1,0 +1,10 @@
+.timeFrame {
+    background-color: black;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50px;
+    margin: 5px;
+    color: red;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}

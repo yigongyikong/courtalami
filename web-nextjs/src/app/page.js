@@ -7,8 +7,8 @@ export default function Home() {
       style={{
         width: '100%',
         height: '100%',
-        margin: '5px',
-        backgroundColor: 'blue',
+        // margin: '5px',
+        // backgroundColor: 'blue',
         // display: 'flex',
         // flexDirection: 'column',
         // justifyContent: 'center'

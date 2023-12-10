@@ -17,7 +17,7 @@ export default function Nav() {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    backgroundColor: 'grey',
+                    // backgroundColor: 'grey',
                 }}
             >
                 <div>LOGIN</div>

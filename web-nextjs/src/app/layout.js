@@ -15,8 +15,8 @@ export default async function RootLayout({ children }) {
       style={{
         height: '100%',
         width: '100%',
-        margin: '5px',
-        border: '10px green solid',
+        // margin: '5px',
+        border: '4px green solid',
         display: 'flex',
         flexDirection: 'column',
         
@@ -29,8 +29,8 @@ export default async function RootLayout({ children }) {
         style={{
           height: '100%',
           width: '100%',
-          margin: '5px',
-          border: '10px black solid',
+          // margin: '5px',
+          border: '2px black solid',
           display: 'flex',
           flexDirection: 'column',
           // backgroundColor: 'red',
@@ -43,8 +43,8 @@ export default async function RootLayout({ children }) {
           style={{
             height: '100%',
             width: '100%',
-            margin: '5px',
-            border: '10px skyblue solid',
+            // margin: '5px',
+            border: '4px skyblue solid',
             display: 'flex',
             flexDirection: 'column',
             // backgroundColor: 'pink'
@@ -54,7 +54,7 @@ export default async function RootLayout({ children }) {
             style={{
               width: '100%',
               flex: 1,
-              backgroundColor: 'red',
+              border: '2px red solid',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
@@ -66,7 +66,7 @@ export default async function RootLayout({ children }) {
             style={{
               width: '100%',
               flex: 3,
-              backgroundColor: 'orange',
+              border: '4px orange solid',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
@@ -78,7 +78,7 @@ export default async function RootLayout({ children }) {
             style={{
               width: '100%',
               flex: 21,
-              backgroundColor: 'yellow',
+              border: '2px yellow solid',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -90,7 +90,7 @@ export default async function RootLayout({ children }) {
             style={{
               width: '100%',
               flex: 3,
-              backgroundColor: 'green',
+              border: '4px green solid',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'

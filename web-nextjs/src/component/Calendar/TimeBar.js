@@ -1,16 +1,27 @@
 import React from 'react';
 
-
 export default async function TimeBar(t) {
-  // console.log(`\n`);
-  // console.log(t.t[0]);
-  // console.log(t.t[1]);
-  // console.log(`\n`);
 
   return (
     <div>
-      {`time: ${t.t[0]} | state: ${t.t[1]}`}
-      {/* <h1>{resp.nowMonth}</h1> */}
+
+      {t.t[1] === '신청' ?
+        <div
+          style={{
+            color: 'blue',
+          }}
+        >
+          {t.t[0].replace(/:00/g, "")} {/* /특정문자열/ 모두 제거 */}
+        </div> :
+        <div
+          style={{
+            color: 'red',
+          }}
+        >
+          {t.t[0].replace(/:00/g, "")}
+        </div>
+      }
+
     </div>
   )
 }
