@@ -1,7 +1,4 @@
 import React from 'react';
-import styles from './calendar.module.css';
-import DayBar from './DayBar';
-import CircleTable from './CircleTable';
 import { AucCourtCrawler } from '@/lib/utils';
 import DatesBar from './DatesBar';
 
@@ -68,8 +65,11 @@ export default async function Calendar() {
                         style={{
                             height: '100%',
                             width: '100%',
-                            flex: 5,
+                            flex: 3,
                             border: '1px #000123 solid',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}
                     >
                         day
@@ -78,7 +78,7 @@ export default async function Calendar() {
                         style={{
                             height: '100%',
                             width: '100%',
-                            flex: 95,
+                            flex: 94,
                             border: '1px #000123 solid',
                             display: 'flex',
                             flexDirection: 'row',
@@ -91,6 +91,9 @@ export default async function Calendar() {
                                         height: '100%',
                                         width: '100%',
                                         border: '1px #000123 solid',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
                                     }} key={idx}
                                 >
                                     {crt}
@@ -98,6 +101,19 @@ export default async function Calendar() {
                             )
                         })}
                         {/* Error: Hydration failed because the initial UI does not match what was rendered on the server.  */}
+                    </div>
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 3,
+                            border: '1px #000123 solid',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        day
                     </div>
                 </div>
                 <div
@@ -116,8 +132,10 @@ export default async function Calendar() {
                         style={{
                             height: '100%',
                             width: '100%',
-                            flex: 5,
+                            flex: 3,
                             border: '1px #000123 solid',
+                            display: 'flex',
+                            flexDirection: 'column',
                         }}
                     >
                         {resp.date.map((day, idx) => {
@@ -126,6 +144,10 @@ export default async function Calendar() {
                                     <div key={idx}
                                         style={{
                                             border: '1px #000123 solid',
+                                            flex: 1,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
                                         }}
                                     >
                                         {day[0]}
@@ -140,7 +162,7 @@ export default async function Calendar() {
                         style={{
                             height: '100%',
                             width: '100%',
-                            flex: 95,
+                            flex: 94,
                             border: '1px #000123 solid',
                             display: 'flex',
                             flexDirection: 'row',
@@ -163,33 +185,103 @@ export default async function Calendar() {
                             )
                         })}
                     </div>
-                    {/* {courtsInfo.anyang_saemul.map(async (crt) => {
-
-                        const resp = await AucCourtCrawler(12, crt);
-                        console.log(resp);
-                        console.log(resp.date);
-                        console.log(resp.date[0][1].length);
-
-                        return (
-                            resp.date[0][1].length !== 0 ?
-                                <div>{resp.date[0]}</div> :
-                                <div> - 2 - </div>
-                            // <div> {crt} </div>
-                        )
-                    })} */}
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 3,
+                            border: '1px #000123 solid',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        {resp.date.map((day, idx) => {
+                            return (
+                                day[1].length !== 0 ?
+                                    <div key={idx}
+                                        style={{
+                                            border: '1px #000123 solid',
+                                            flex: 1,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        {day[0]}
+                                    </div> :
+                                    <div key={idx} />
+                            )
+                        })}
+                        {/* Error: Hydration failed because the initial UI does not match what was rendered on the server.  */}
+                    </div>
                 </div>
-
-
-
-
-
-
-                {/* <div className={styles.calFrame}>
-                    {resp.date.map((day, idx) => { // idx : Warning: Each child in a list should have a unique "key" prop.
-                        // console.log(`\n day : ${day} \n`)
-                        return <DayBar key={idx} d={day} />
-                    })}
-                </div> */}
+                <div
+                    style={{
+                        height: '100%',
+                        width: '100%',
+                        flex: 1,
+                        border: '1px #000123 solid',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'start',
+                        alignItems: 'center'
+                    }}
+                >
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 3,
+                            border: '1px #000123 solid',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        day
+                    </div>
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 94,
+                            border: '1px #000123 solid',
+                            display: 'flex',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        {courtsInfo.anyang_saemul.map((crt, idx) => {
+                            return (
+                                <div
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        border: '1px #000123 solid',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }} key={idx}
+                                >
+                                    {crt}
+                                </div>
+                            )
+                        })}
+                        {/* Error: Hydration failed because the initial UI does not match what was rendered on the server.  */}
+                    </div>
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 3,
+                            border: '1px #000123 solid',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        day
+                    </div>
+                </div>
             </div>
         </div>
     )

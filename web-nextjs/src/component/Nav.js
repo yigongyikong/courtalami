@@ -7,7 +7,7 @@ export default function Nav() {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                // backgroundColor: 'green',
+                backgroundColor: 'green',
             }}
         >
             <div>LOGO</div>

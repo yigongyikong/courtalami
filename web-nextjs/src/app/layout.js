@@ -2,6 +2,8 @@ import Nav from '@/component/Nav'
 import './globals.css'
 import Footer from '@/component/Footer'
 import FilterBar from '@/component/FilterBar'
+import SideLeftBar from '@/component/SideLeftBar'
+import SideRightBar from '@/component/SideRightBar'
 
 export const metadata = {
   title: '코트 알라미',
@@ -13,13 +15,12 @@ export default async function RootLayout({ children }) {
   return (
     <html
       style={{
-        height: '100%',
         width: '100%',
+        height: '100%',
         // margin: '5px',
-        border: '4px green solid',
+        // border: '4px green solid',
         display: 'flex',
         flexDirection: 'column',
-        
         // backgroundColor: 'beige',
         // margin: '10px',
         // padding: '5px',
@@ -36,7 +37,7 @@ export default async function RootLayout({ children }) {
           // backgroundColor: 'red',
           // margin: '10px',
           // padding: '15px',
-          
+
         }}
       >
         <div
@@ -74,6 +75,7 @@ export default async function RootLayout({ children }) {
           >
             <FilterBar />
           </div>
+
           <div
             style={{
               width: '100%',
@@ -84,7 +86,18 @@ export default async function RootLayout({ children }) {
               justifyContent: 'center',
             }}
           >
-            {children}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%'
+              }}
+            >
+              <SideLeftBar />
+              {children}
+              <SideRightBar />
+            </div>
+            
           </div>
           <div
             style={{

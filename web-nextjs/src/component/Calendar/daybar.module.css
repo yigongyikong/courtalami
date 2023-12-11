@@ -2,12 +2,15 @@
     /* background-color: aquamarine; */
     flex: 1;
     /* margin: 10px; */
-    border: 1px tomato solid;
-    
+    /* border: 1px tomato solid; */
     /* background-color: black; */
     height: fit-content;
     width: fit-content;
     border-radius: 50px;
+    align-items: center;
+}
+
+.timeGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }

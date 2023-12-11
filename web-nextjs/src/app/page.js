@@ -5,13 +5,9 @@ export default function Home() {
   return (
     <div
       style={{
+        flex: 8,
         width: '100%',
         height: '100%',
-        // margin: '5px',
-        // backgroundColor: 'blue',
-        // display: 'flex',
-        // flexDirection: 'column',
-        // justifyContent: 'center'
       }}
     >
       <Calendar />
