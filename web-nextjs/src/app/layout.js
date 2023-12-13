@@ -19,31 +19,30 @@ export default async function RootLayout({ children }) {
         height: '100%',
         // margin: '5px',
         // border: '4px green solid',
-        display: 'flex',
-        flexDirection: 'column',
         // backgroundColor: 'beige',
         // margin: '10px',
         // padding: '5px',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <body
         style={{
-          height: '100%',
-          width: '100%',
+          // height: '100%',
+          // width: '100%',
           // margin: '5px',
-          border: '2px black solid',
-          display: 'flex',
-          flexDirection: 'column',
+          // border: '2px black solid',
           // backgroundColor: 'red',
           // margin: '10px',
           // padding: '15px',
-
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <div
           style={{
-            height: '100%',
-            width: '100%',
+            // height: '100%',
+            // width: '100%',
             // margin: '5px',
             border: '4px skyblue solid',
             display: 'flex',
@@ -54,7 +53,8 @@ export default async function RootLayout({ children }) {
           <div
             style={{
               width: '100%',
-              flex: 1,
+              height: '57px',
+              // flex: 1,
               border: '2px red solid',
               display: 'flex',
               flexDirection: 'column',
@@ -66,7 +66,8 @@ export default async function RootLayout({ children }) {
           <div
             style={{
               width: '100%',
-              flex: 3,
+              height: '66px',
+              // flex: 3,
               border: '4px orange solid',
               display: 'flex',
               flexDirection: 'column',
@@ -97,7 +98,7 @@ export default async function RootLayout({ children }) {
               {children}
               <SideRightBar />
             </div>
-            
+
           </div>
           <div
             style={{

@@ -280,6 +280,50 @@ const parseToTimeStateArray = (tmpStr) => {
     return timeStateTotArray;
 }
 
-AucCourtCrawler(11, 'tennis1')
 
-module.exports = { AucCourtCrawler }
+async function UpdatedTime() {
+    // let resultJson = {};
+
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+
+    const sysNow = new Date();
+    // console.log(`sysNow : ${sysNow}`);
+    const nowUtc = sysNow.getTime() + (sysNow.getTimezoneOffset() * 60 * 1000);
+    // console.log(`nowUtc : ${nowUtc}`);
+
+    const nowKst = new Date(nowUtc + (KR_TIME_DIFF));
+    // console.log(`nowKst : ${nowKst}`);
+
+    const nowYear = nowKst.getFullYear();
+    // console.log(`nowYear : ${nowYear}`);
+    // resultJson.nowYear = nowYear;
+    // console.log(`resultJson : ${resultJson}`);
+
+
+
+    const nowMonth = nowKst.getMonth() + 1; // Get the month, from 0 to 11.
+    // console.log(`nowMonth : ${nowMonth}`);
+    // resultJson.nowMonth = nowMonth;
+
+    const nowDay = nowKst.getDate();
+    // console.log(`nowDay : ${nowDay}`);
+
+    const nowHour = nowKst.getHours();
+    // console.log(`nowHour : ${nowHour}`);
+
+    const nowMinutes = nowKst.getMinutes();
+    // console.log(`nowMinutes : ${nowMinutes}`);
+
+    const nowSeconds = nowKst.getSeconds();
+    // console.log(`nowSeconds : ${nowSeconds}`);
+
+    const timeResult = `최종 업데이트 시점 : ${nowYear}년 ${nowMonth}월 ${nowDay}일, ${nowHour}시 ${nowMinutes}분 ${nowSeconds}초`;
+
+    return timeResult;
+}
+
+// UpdatedTime();
+
+// AucCourtCrawler(11, 'tennis1')
+
+module.exports = { AucCourtCrawler, UpdatedTime }
