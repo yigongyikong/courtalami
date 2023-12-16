@@ -4,6 +4,8 @@ import DatesBar from './DatesBar';
 
 export default async function Calendar() {
 
+    // const [isClient, setIsClient] = useState(false);
+
     const courtsInfo = {
         "anyang_saemul": [
             "tennis1",
@@ -22,6 +24,7 @@ export default async function Calendar() {
     const nowUtc = sysNow.getTime() + (sysNow.getTimezoneOffset() * 60 * 1000);
     const nowKst = new Date(nowUtc + (KR_TIME_DIFF));
     const nowMonth = nowKst.getMonth() + 1; // Get the month, from 0 to 11.
+
 
     const resp = await AucCourtCrawler(nowMonth, courtsInfo.anyang_saemul[0]);
 
@@ -168,7 +171,7 @@ export default async function Calendar() {
                             flexDirection: 'row',
                         }}
                     >
-                        {courtsInfo.anyang_saemul.map(async (crt, idx) => {
+                        {courtsInfo.anyang_saemul.map( async (crt, idx) => {
 
                             const resp1 = await AucCourtCrawler(12, crt);
 

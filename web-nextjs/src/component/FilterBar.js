@@ -1,4 +1,5 @@
 import React from 'react'
+import TimeCircle from './Calendar/TimeCircle'
 
 export default function FilterBar() {
     return (
@@ -8,6 +9,8 @@ export default function FilterBar() {
             }}
         >
             FilterBar
+
+            <TimeCircle />
         </div>
     )
 }

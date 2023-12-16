@@ -9,7 +9,7 @@ function Login() {
                 height: '100%',
             }}
         >
-            Login
+            Login(Kakao, Line, Telegram)
         </div>
     )
 }
