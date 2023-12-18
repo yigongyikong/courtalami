@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import FilterBar from '../component/FilterBar'
+import Calendar from '../component/Calendar'
 
 const Total = styled.div`
     flex: 8;
@@ -7,7 +9,10 @@ const Total = styled.div`
 
 function Main() {
   return (
-    <Total>Main</Total>
+    <Total>
+        <FilterBar />
+        <Calendar />
+    </Total>
   )
 }
 

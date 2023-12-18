@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Total = styled.div`
   width: 100%;
@@ -15,9 +16,9 @@ function Nav() {
 
     return (
         <Total>
-            <div>
+            <Link to="/">
                 logo
-            </div>
+            </Link>
             <div>
                 current time
             </div>
@@ -25,21 +26,21 @@ function Nav() {
                 {isLogin === true
                     ?
                     (<div>
-                        <div>
+                        <Link to="/login">
                             LOGIN
-                        </div>
-                        <div>
+                        </Link>
+                        <Link to="/signin">
                             SIGNIN
-                        </div>
+                        </Link>
                     </div>)
                     :
                     (<div>
-                        <div>
+                        <Link to="/">
                             LOGOUT
-                        </div>
-                        <div>
+                        </Link>
+                        <Link to="/mypage">
                             MyPage
-                        </div>
+                        </Link>
                     </div>)
                 }
             </div>

@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Total = styled.div`
-  height: 100px;
+  flex: 3;
   display: flex;
   flex-direction: row;
+  background-color: skyblue;
 `
 
 function Footer() {
