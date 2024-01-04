@@ -11,7 +11,12 @@ const Total = styled.div`
 
 function FilterBar() {
   return (
-    <Total>FilterBar</Total>
+    <Total>
+      <select>
+        <option>안양도시공사-새물공원</option>
+        <option>안양도시공사-서조체육시설</option>
+      </select>
+    </Total>
   )
 }
 

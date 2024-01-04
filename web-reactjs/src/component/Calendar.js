@@ -16,7 +16,7 @@ const Table = styled.div`
   width: 100%;
   height: 100%;
   flex: 1;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -27,7 +27,7 @@ const Schema = styled.div`
   width: 100%;
   height: 100%;
   flex: 1;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -38,7 +38,7 @@ const Daily = styled.div`
   width: 100%;
   height: 100%;
   flex: 3;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +48,7 @@ const Courts = styled.div`
   width: 100%;
   height: 100%;
   flex: 94;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: row;
 `;
@@ -56,7 +56,7 @@ const Courts = styled.div`
 const Court = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,16 +66,16 @@ const TimeTable = styled.div`
   width: 100%;
   height: 100%;
   flex: 94;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: row;
 `;
 
 const DatesList = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   flex: 3;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: column;
 `;
@@ -88,17 +88,59 @@ const Date = styled.div`
   align-items: center;
 `;
 
-const TimeList = styled.div`
+const AllCourtSchedule = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 100vh;
   flex: 94;
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   display: flex;
   flex-direction: row;
 `;
 
-function Calendar() {
+const OneCourtSchedule = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px #000123 solid;
+`;
 
+
+const OneCourtFrame = styled.div`
+  flex: 1;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+`;
+
+
+const TimeGrid = styled.div`
+  border: 1px #000123 solid;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-content: center;
+`;
+
+const TimeBar = styled.div`
+  align-items: center;
+  justify-content: center;
+`;
+
+const OpenTime = styled.div`
+  color: blue;
+  font-size: xx-small;
+`;
+
+const CloseTime = styled.div`
+  color: red;
+  font-size: xx-small;
+`;
+
+function Calendar(date) {
+
+  console.log(date)
   const [courtList, setCourtList] = useState();
   const [oneCourtInfo, setOneCourtInfo] = useState({});
   const [allCourtInfo, setAllCourtInfo] = useState({});
@@ -140,34 +182,26 @@ function Calendar() {
       try {
         setAllCourtInfo({});
 
-        let tmpAllCourtInfo = {};
+        // const response = await axios.post('http://localhost:38080/SaemulAllCourtInfo', {
+        const response = await axios.post('http://localhost:38080/SeozoAllCourtInfo', {
+          "thisYear": thisYear,
+          "thisMonth": thisMonth,
+        });
 
-        courtList?.map(async (court, idx) => {
-          const response = await fetchOneCourtInfo(thisYear, thisMonth, court);
-
-          tmpAllCourtInfo[court] = response;
-        })
-
-
-        setAllCourtInfo(tmpAllCourtInfo);
-        // return response;
+        setAllCourtInfo(response);
+        return response;
       } catch (e) {
         console.log(e);
       }
     }
 
     fetchCourtList();
-    fetchOneCourtInfo("2024", "1", "tennis1");
-    fetchAllCourtInfo("2024", "1");
+    fetchOneCourtInfo(date.year, date.month, "tennis1");
+    fetchAllCourtInfo(date.year, date.month);
 
   }, []);
 
-  // console.log(courtList?.data);
-  console.log(oneCourtInfo?.data?.date);
   console.log(allCourtInfo);
-
-  // console.log(courtInfo?.data?.date[0][0]);
-  // console.log(courtInfo?.data?.date[0][1]);
 
   return (
     <Total>
@@ -204,26 +238,57 @@ function Calendar() {
                       (<Date key={idx}>
                         {day[0]}
                       </Date>)
-                      : (null)
+                      : null
                   )
                 }
               )
             }
           </DatesList>
-          <TimeList>
+          <AllCourtSchedule>
             {
-              courtList?.data.map(
-                (crt, idx) => {
-
+              allCourtInfo?.data?.map(
+                (courtInfo, idx) => {
                   return (
-                    <Court key={idx}>
-                      {crt}
-                    </Court>
+                    <OneCourtSchedule key={idx}>
+                      <OneCourtFrame>
+                        {
+                          courtInfo?.date.map(
+                            (oneCourt, idx) => {
+                              // console.log(idx);
+                              // console.log(oneCourt);
+                              // console.log(oneCourt[1].length);
+                              return (
+                                oneCourt[1].length !== 0
+                                  ?
+                                  <TimeGrid key={idx}>
+                                    {
+                                      oneCourt[1]?.map(
+                                        (timeList, idx) => {
+                                          // console.log(timeList);
+                                          return (
+                                            <TimeBar key={idx}>
+                                              {timeList[1] === '신청'
+                                                ? <OpenTime>/ {timeList[0]?.replace(/:00/g, "")} /</OpenTime>
+                                                : <CloseTime>/ {timeList[0]?.replace(/:00/g, "")} /</CloseTime>}
+                                            </TimeBar>
+                                          );
+                                        }
+                                      )
+                                    }
+                                  </TimeGrid>
+                                  :
+                                  <div key={idx} />
+                              );
+                            }
+                          )
+                        }
+                      </OneCourtFrame>
+                    </OneCourtSchedule>
                   );
                 }
               )
             }
-          </TimeList>
+          </AllCourtSchedule>
           <DatesList>
             {
               oneCourtInfo?.data?.date.map(

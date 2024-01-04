@@ -98,8 +98,9 @@ const aucSeozoCourtPageCode = {
     ], // https://www.auc.or.kr/reservation/program/rental/calendarView?menuLevel=2&menuNo=371&year=2023&month=12&types=9&flag=07
 }
 
+// const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendar?menuLevel=2&menuNo=371&';
 const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendarView?menuLevel=2&menuNo=371&';
-
+// https://www.auc.or.kr/reservation/program/rental/calendar?types=9&flag=04&year=2024&month=2&menuLevel=2&menuNo=351
 /**
  * 함수 정의 : Court 정보를 제공하는 API 서버
  */
@@ -136,8 +137,6 @@ async function CourtServer() {
         let thisYear = req.body.thisYear; // 조회 년
         let thisMonth = req.body.thisMonth; // 조회 월
 
-        console.log(`thisYear:${thisYear} || thisMonth:${thisMonth}`);
-
         let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
 
         resultJson.thisYear = thisYear;
@@ -166,6 +165,18 @@ async function CourtServer() {
         res.status(200).json(resultJson);
     });
 
+    app.post('/SeozoAllCourtInfo', async (req, res) => {
+        let thisYear = req.body.thisYear; // 조회 년
+        let thisMonth = req.body.thisMonth; // 조회 월
+
+        let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
+
+        resultJson.thisYear = thisYear;
+        resultJson.thisMonth = thisMonth;
+        resultJson.courtName = "Seozo";
+
+        res.status(200).json(resultJson);
+    });
 
     const port = process.env.PORT || 38080;
     app.listen(port, () => {
@@ -251,7 +262,7 @@ const crawlingAucCourtOneInfo = async (thisYear, thisMonth, court, aucCourtPageC
 
 
 const crawlingAucCourtAllInfo = async (thisYear, thisMonth, aucCourtList, aucCourtPageCode) => {
-    let resultTotArray = {}; // resultJson 값 전체를 저장할 배열
+    let resultTotArray = []; // resultJson 값 전체를 저장할 배열
     let resultJson = {}; // 결과 값을 저장할 객체
 
     // console.log(`thisYear:${thisYear} || thisMonth:${thisMonth}`);
@@ -334,8 +345,9 @@ const crawlingAucCourtAllInfo = async (thisYear, thisMonth, aucCourtList, aucCou
             }
         });
 
-        console.log(resultJson);
-        resultTotArray[court] = resultJson;
+        // console.log(resultJson);
+        // resultTotArray[court] = resultJson;
+        resultTotArray.push(resultJson);
     }
 
     console.log(resultTotArray);
