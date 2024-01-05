@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import useSelectedCourtStore from '../stores/selectedCourt';
 
 
 const Total = styled.div`
@@ -140,10 +141,14 @@ const CloseTime = styled.div`
 
 function Calendar(date) {
 
-  console.log(date)
+  // console.log(date)
   const [courtList, setCourtList] = useState();
   const [oneCourtInfo, setOneCourtInfo] = useState({});
   const [allCourtInfo, setAllCourtInfo] = useState({});
+
+  const { selectedCourt } = useSelectedCourtStore();
+
+  console.log(selectedCourt)
 
   useEffect(() => {
     const fetchCourtList = async () => {
@@ -151,7 +156,8 @@ function Calendar(date) {
         setCourtList();
         // SeozoCourtList
         // const response = await axios.get('http://localhost:38080/SaemulCourtList', {
-        const response = await axios.get('http://localhost:38080/SeozoCourtList', {
+        // const response = await axios.get('http://localhost:38080/SeozoCourtList', {
+        const response = await axios.get(`http://localhost:38080/${selectedCourt}CourtList`, {
         });
 
         setCourtList(response);
@@ -165,7 +171,8 @@ function Calendar(date) {
         setOneCourtInfo({});
 
         // const response = await axios.post('http://localhost:38080/SaemulOneCourtInfo', {
-        const response = await axios.post('http://localhost:38080/SeozoOneCourtInfo', {
+        // const response = await axios.post('http://localhost:38080/SeozoOneCourtInfo', {
+        const response = await axios.post(`http://localhost:38080/${selectedCourt}OneCourtInfo`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
           "court": court
@@ -183,7 +190,8 @@ function Calendar(date) {
         setAllCourtInfo({});
 
         // const response = await axios.post('http://localhost:38080/SaemulAllCourtInfo', {
-        const response = await axios.post('http://localhost:38080/SeozoAllCourtInfo', {
+        // const response = await axios.post('http://localhost:38080/SeozoAllCourtInfo', {
+        const response = await axios.post(`http://localhost:38080/${selectedCourt}AllCourtInfo`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
         });
@@ -199,7 +207,7 @@ function Calendar(date) {
     fetchOneCourtInfo(date.year, date.month, "tennis1");
     fetchAllCourtInfo(date.year, date.month);
 
-  }, []);
+  }, [selectedCourt]);
 
   console.log(allCourtInfo);
 
