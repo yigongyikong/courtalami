@@ -1,11 +1,22 @@
-import React from 'react'
-import styled from 'styled-components'
-import FilterBar from '../component/FilterBar'
-import Calendar from '../component/Calendar'
-import MidAd from '../component/MidAd'
+import React from 'react';
+import styled from 'styled-components';
+import FilterBar from '../component/FilterBar';
+import Calendar from '../component/Calendar';
+import MidAd from '../component/MidAd';
 
 const Total = styled.div`
-    flex: 8;
+  /* background-color: blue; */
+  flex: 8;
+
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start; // 수직정렬
+  align-items: center; // 수평정렬
+  flex-direction: column;
+
+  overflow-y: scroll;
 `
 
 function Main() {
@@ -19,10 +30,11 @@ function Main() {
 
   return (
     <Total>
-        <FilterBar />
-        <Calendar year={nowYear} month={nowMonth} />
-        <MidAd></MidAd>
-        {/* <Calendar year={nowMonth === '12' ? nowYear+1 : nowYear} month={nowMonth === '12' ? 1 : nowMonth+1} /> */}
+      <FilterBar />
+      <Calendar year={nowYear} month={nowMonth} />
+      {/* <MidAd></MidAd> */}
+      {/* <Calendar year={nowYear} month={nowMonth} /> */}
+      {/* <Calendar year={nowMonth === '12' ? nowYear+1 : nowYear} month={nowMonth === '12' ? 1 : nowMonth+1} /> */}
     </Total>
   )
 }

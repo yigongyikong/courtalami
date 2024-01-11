@@ -138,6 +138,8 @@ async function CourtServer() {
         let thisMonth = req.body.thisMonth; // 조회 월
 
         let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
+        // let resultJson = await crawlingAucCourtTmpAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
+        // crawlingAucCourtTmpAllInfo
 
         resultJson.thisYear = thisYear;
         resultJson.thisMonth = thisMonth;
@@ -354,8 +356,98 @@ const crawlingAucCourtAllInfo = async (thisYear, thisMonth, aucCourtList, aucCou
     return resultTotArray;
 }
 
+/*
+const crawlingAucCourtTmpAllInfo = async (thisYear, thisMonth, aucCourtList, aucCourtPageCode) => {
+    let resultTotArray = []; // resultJson 값 전체를 저장할 배열
+    let resultJson = {}; // 결과 값을 저장할 객체
+
+    const requests = aucCourtList.map( async (court, idx) => {
+
+        // console.log(court);
+
+        const resp = await axios.get(
+            // `${aucComnLink + 'year=' + timeRlt.nowYear + '&month=' + timeRlt.nowMonth + '&types=' + aucSaemulCourtPageCode['tennis1'][0].types + '&flag=' + aucSaemulCourtPageCode['tennis1'][0].flag}`
+            // `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucSaemulCourtPageCode[court][0].types + '&flag=' + aucSaemulCourtPageCode[court][0].flag}`
+            `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucCourtPageCode[court][0].types + '&flag=' + aucCourtPageCode[court][0].flag}`
+        ); // thisYear년 thisMonth월에 court page의 raw data
+    
+        const $ = cheerio.load(resp.data);
+    
+        const dateCalenderBd = $('tbody');
+        let tbodyDataFromDateCalenderBd = [];
+        dateCalenderBd.find('tr > td').each((idx, el) => {
+            tbodyDataFromDateCalenderBd.push(dataFiltering($(el).text().trim())); // .trim() : string의 맨 좌우 빈칸(공백)을 제거한다.
+        }).toArray();
+    
+        let dateNschedule = [];
+        tbodyDataFromDateCalenderBd.map((el) => {
+            if (!(el.length === 0)) dateNschedule.push(el);
+        });
+    
+        resultJson.date = [];
+    
+        dateNschedule.map((el, idx) => {
+    
+            if (idx < 9) {
+                resultJson.date[idx] = [el.substring(0, 1).trim(), parseToTimeStateArray(el.substring(1))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
+            } else {
+                resultJson.date[idx] = [el.substring(0, 2).trim(), parseToTimeStateArray(el.substring(2))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
+            }
+        });
+
+        // console.log(resultJson);
+        resultTotArray[court] = resultJson;
+        // console.log(resultJson);
+        return resultTotArray;    
+    });
+    
+    // for (let i = 0; i < aucCourtList.length; i++) {
+
+    //     let court = aucCourtList[i];
+    //     console.log(court);
+
+    //     const resp = await axios.get(
+    //         // `${aucComnLink + 'year=' + timeRlt.nowYear + '&month=' + timeRlt.nowMonth + '&types=' + aucSaemulCourtPageCode['tennis1'][0].types + '&flag=' + aucSaemulCourtPageCode['tennis1'][0].flag}`
+    //         // `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucSaemulCourtPageCode[court][0].types + '&flag=' + aucSaemulCourtPageCode[court][0].flag}`
+    //         `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucCourtPageCode[court][0].types + '&flag=' + aucCourtPageCode[court][0].flag}`
+    //     ); // thisYear년 thisMonth월에 court page의 raw data
+
+    //     const $ = cheerio.load(resp.data);
+
+    //     const dateCalenderBd = $('tbody');
+    //     let tbodyDataFromDateCalenderBd = [];
+    //     dateCalenderBd.find('tr > td').each((idx, el) => {
+    //         tbodyDataFromDateCalenderBd.push(dataFiltering($(el).text().trim())); // .trim() : string의 맨 좌우 빈칸(공백)을 제거한다.
+    //     }).toArray();
+
+    //     let dateNschedule = [];
+    //     tbodyDataFromDateCalenderBd.map((el) => {
+    //         if (!(el.length === 0)) dateNschedule.push(el);
+    //     });
+
+    //     resultJson.date = [];
+
+    //     dateNschedule.map((el, idx) => {
+
+    //         if (idx < 9) {
+    //             resultJson.date[idx] = [el.substring(0, 1).trim(), parseToTimeStateArray(el.substring(1))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
+    //         } else {
+    //             resultJson.date[idx] = [el.substring(0, 2).trim(), parseToTimeStateArray(el.substring(2))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
+    //         }
+    //     });
+
+    //     // console.log(resultJson);
+    //     // resultTotArray[court] = resultJson;
+    //     resultTotArray.push(resultJson);
+    // }
 
 
+
+    console.log(resultTotArray);
+    // return resultTotArray;
+    return await Promise.all(requests);
+}
+*/
 
 
 

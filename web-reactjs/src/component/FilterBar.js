@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import useSelectedCourtStore from '../stores/selectedCourt';
 
@@ -8,17 +8,19 @@ const Total = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `
 
 function FilterBar() {
   const { selectedCourt, setSelectedCourt } = useSelectedCourtStore();
 
+  useEffect(() => {
+    setSelectedCourt("Saemul");
+  }, [])
+
   const handleChangeSelect = (e) => {
     setSelectedCourt(e.target.value);
   }
-
-  // console.log(selected);
-  // console.log(selectedCourt);
 
   return (
     <Total>

@@ -1,12 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Total = styled.div`
+  /* background-color: #880000; */
+  background-color: coral;
   width: 100%;
   height: 57px;
-  background-color: yellow;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
 `
 
@@ -27,19 +30,19 @@ function Nav() {
                     ?
                     (<div>
                         <Link to="/login">
-                            LOGIN
+                            LOGIN(준비중)
                         </Link>
                         <Link to="/signin">
-                            SIGNIN
+                            SIGNIN(준비중)
                         </Link>
                     </div>)
                     :
                     (<div>
                         <Link to="/">
-                            LOGOUT
+                            LOGOUT(준비중)
                         </Link>
                         <Link to="/mypage">
-                            MyPage
+                            MyPage(준비중)
                         </Link>
                     </div>)
                 }
@@ -48,4 +51,4 @@ function Nav() {
     )
 }
 
-export default Nav
+export default Nav;

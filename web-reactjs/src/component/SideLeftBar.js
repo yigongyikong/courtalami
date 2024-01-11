@@ -1,10 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Total = styled.div`
-    flex: 1;
-    background-color: greenyellow;
-`
+  /* background-color: #000044; */
+  flex: 1;
+
+  background-color: burlywood;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function SideLeftBar() {
   return (
@@ -12,4 +19,4 @@ function SideLeftBar() {
   )
 }
 
-export default SideLeftBar
+export default SideLeftBar;

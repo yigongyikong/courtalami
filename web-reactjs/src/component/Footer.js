@@ -1,11 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Total = styled.div`
-  flex: 3;
+  /* background-color: #880000; */
+  background-color: aliceblue;
+  width: 100%;
+  height: 57px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
-  background-color: skyblue;
 `
 
 function Footer() {
@@ -18,4 +22,4 @@ function Footer() {
     )
 }
 
-export default Footer
+export default Footer;
