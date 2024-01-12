@@ -4,7 +4,7 @@ import useSelectedCourtStore from '../stores/selectedCourt';
 
 const Total = styled.div`
   width: 100%;
-  height: 66px;
+  height: 57px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,6 +16,8 @@ function FilterBar() {
 
   useEffect(() => {
     setSelectedCourt("Saemul");
+
+    console.log(selectedCourt);
   }, [])
 
   const handleChangeSelect = (e) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FilterBar from '../component/FilterBar';
 import Calendar from '../component/Calendar';
-import MidAd from '../component/MidAd';
+// import MidAd from '../component/MidAd';
 
 const Total = styled.div`
   /* background-color: blue; */

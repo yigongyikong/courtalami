@@ -3,179 +3,156 @@ import styled from 'styled-components';
 import axios from 'axios';
 import useSelectedCourtStore from '../stores/selectedCourt';
 
-
 const Total = styled.div`
-  width: 100%;
+  /* border: 1px #000123 solid; */
   flex: 1;
-  /* height: 400px; */
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   background-color: beige;
   border: 10px white soild;
 `;
-
 const Table = styled.div`
-  width: 100%;
-  height: 100%;
+  border: 1px #000123 solid;
   flex: 1;
-  /* border: 1px #000123 solid; */
+  width: 100%;
+  /* height: 100%; */
+
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
 `;
-
 const TableInfo = styled.div`
+  /* border: 1px #000123 solid; */
+
   display: flex;
   justify-content: start;
   align-items: center;
 `;
-
 const TableContents = styled.div`
-  width: 100%;
-  height: 100%;
+  border: 1px #000123 solid;
   flex: 1;
-  /* border: 1px #000123 solid; */
+  width: 100%;
+  /* height: 100%; */
+  
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
 `;
-
 const DateInfo = styled.div`
   /* border: 1px #000123 solid; */
-
+  flex: 3;
   width: 100%;
   height: 100%;
-  flex: 3;
   
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
-
 const DateScheme = styled.div`
   border: 1px #000123 solid;
-
   width: 100%;
   height: 5vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const DatesList = styled.div`
   /* border: 1px #000123 solid; */
-
-  width: 100%;
-  height: 90vh;
-  /* height: auto; */
   flex: 1;
+  width: 100%;
+  /* height: 90vh; */
   
   display: flex;
   flex-direction: column;
 `;
-
 const Date = styled.div`
   border: 1px #000123 solid;
-
   flex: 1;
+
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
-
 const CourtInfo = styled.div`
   /* border: 1px #000123 solid; */
-
+  flex: 94;
   width: 100%;
   height: 100%;
-  flex: 94;
   
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const CourtScheme = styled.div`
-  border: 1px #000123 solid;
-
-  width: 100%;
-  height: 5vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-
-
-
-
-const Court = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px #000123 solid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TimeTable = styled.div`
-  width: 100%;
-  /* height: 100%; */
-  height: 100vh; // 20240111-modify
-  flex: 94;
-  /* border: 1px #000123 solid; */
-  display: flex;
-  flex-direction: row;
-`;
-
-
-
-const AllCourtSchedule = styled.div`
-  width: 100%;
-  /* height: 100%; */
-  height: 100vh;
-  flex: 94;
-  /* border: 1px #000123 solid; */
-  display: flex;
-  flex-direction: row;
 
   overflow-x: scroll;
 `;
-
-const OneCourtSchedule = styled.div`
-  width: 100%;
-  /* height: 100%; */
-  height: 100vh;
+const CourtScheme = styled.div`
   border: 1px #000123 solid;
-`;
+  width: 100%;
+  /* width: 100vh; */
+  height: 5vh;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Court = styled.div`
+  border: 1px #000123 solid;
+  width: 100%;
+  height: 100%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const AllCourtSchedule = styled.div`
+  /* border: 1px #000123 solid; */
+  flex: 94;
+  width: 100%;
+  height: 100vh;
+  
+  display: flex;
+
+  /* justify-content: center;
+  align-items: center; */
+
+  flex-direction: row;
+  /* overflow-x: scroll; */
+`;
+const OneCourtSchedule = styled.div`
+  border: 1px #000123 solid;
+  width: 100%;
+  height: 100%;
+`;
 const OneCourtFrame = styled.div`
   flex: 1;
-  height: fit-content;
-  width: fit-content;
-  border-radius: 50px;
-  align-items: center;
-  justify-content: center;
-`;
+  height: 100%;
+  width: 100%;
 
+  display: flex;
+  flex-direction: column;
+`;
 const TimeGrid = styled.div`
   border: 1px #000123 solid;
+  flex: 1;
+  width: 100%;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-content: center;
 `;
-
 const TimeBar = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
-
 const OpenTime = styled.div`
   color: #ff7f00;
   background-color: blue;
@@ -185,7 +162,6 @@ const OpenTime = styled.div`
   /* text-size-adjust: auto; */
   font-size: xx-small;
 `;
-
 const CloseTime = styled.div`
   color: #005666;
   background-color: red;
@@ -265,12 +241,13 @@ function Calendar(date) {
   return (
     <Total>
       <Table>
-        <TableInfo>
+        <TableInfo>  {/* 상단 날짜 및 코트장 이름 */}
           {oneCourtInfo?.data?.thisYear}년 {oneCourtInfo?.data?.thisMonth}월 {oneCourtInfo?.data?.courtName}-코트장
         </TableInfo>
 
         <TableContents>
-          <DateInfo>
+
+          <DateInfo> {/* 좌측 날짜 열 */}
             <DateScheme>
               일
             </DateScheme>
@@ -293,7 +270,8 @@ function Calendar(date) {
               일
             </DateScheme>
           </DateInfo>
-          <CourtInfo>
+
+          <CourtInfo> {/* 중앙 코트 정보 */}
             <CourtScheme>
               {
                 courtList?.data.map(
@@ -307,9 +285,6 @@ function Calendar(date) {
                 )
               }
             </CourtScheme>
-
-
-
 
             <AllCourtSchedule>
               {
@@ -353,8 +328,6 @@ function Calendar(date) {
               }
             </AllCourtSchedule>
 
-
-
             <CourtScheme>
               {
                 courtList?.data.map(
@@ -369,7 +342,8 @@ function Calendar(date) {
               }
             </CourtScheme>
           </CourtInfo>
-          <DateInfo>
+
+          <DateInfo> {/* 우측 날짜 열 */}
             <DateScheme>
               일
             </DateScheme>
@@ -392,6 +366,7 @@ function Calendar(date) {
               일
             </DateScheme>
           </DateInfo>
+
         </TableContents>
       </Table>
     </Total>

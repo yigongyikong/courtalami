@@ -32,7 +32,7 @@ const Middle = styled.div`
   background-color: aqua;
   width: 100%;
   /* height: 100%; */
-  flex: 1;
+  flex: 1; // for height
   display: flex;
   justify-content: center;
   align-items: center;
