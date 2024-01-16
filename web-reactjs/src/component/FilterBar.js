@@ -4,11 +4,14 @@ import useSelectedCourtStore from '../stores/selectedCourt';
 
 const Total = styled.div`
   width: 100%;
-  height: 57px;
+  /* height: 57px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  position: fixed;
+  top: 37px;
 `
 
 function FilterBar() {
@@ -34,4 +37,4 @@ function FilterBar() {
   )
 }
 
-export default FilterBar
+export default FilterBar;

@@ -16,7 +16,7 @@ const Total = styled.div`
   align-items: center; // 수평정렬
   flex-direction: column;
 
-  overflow-y: scroll;
+  overflow-x: scroll;
 `
 
 function Main() {

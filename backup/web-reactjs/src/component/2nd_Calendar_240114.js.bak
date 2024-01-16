@@ -4,52 +4,46 @@ import axios from 'axios';
 import useSelectedCourtStore from '../stores/selectedCourt';
 
 const Total = styled.div`
-  border: 1px #000123 solid;
-  flex: 1;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
-  background-color: beige;
-
-  /* overflow-y: scroll; */
-`;
-const Table = styled.div`
   /* border: 1px #000123 solid; */
   flex: 1;
   width: 100%;
 
   display: flex;
   flex-direction: column;
-  /* justify-content: start; */
-  justify-content: center;
+  background-color: beige;
+  border: 10px white soild;
+`;
+const Table = styled.div`
+  border: 1px #000123 solid;
+  flex: 1;
+  width: 100%;
+  /* height: 100%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
 `;
 const TableInfo = styled.div`
-  border: 1px #000123 solid;
-  width: 100%;
-  height: 30px;
+  /* border: 1px #000123 solid; */
 
   display: flex;
-  /* justify-content: start; */
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 `;
 const TableContents = styled.div`
-  /* border: 1px #000123 solid; */
+  border: 1px #000123 solid;
   flex: 1;
   width: 100%;
   /* height: 100%; */
   
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 `;
 const DateInfo = styled.div`
-  border: 1px #000123 solid;
+  /* border: 1px #000123 solid; */
   flex: 3;
   width: 100%;
   height: 100%;
@@ -61,20 +55,18 @@ const DateInfo = styled.div`
 `;
 const DateScheme = styled.div`
   border: 1px #000123 solid;
-  flex: 1;
   width: 100%;
-  /* height: 5vh; */
+  height: 5vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const DatesList = styled.div`
-  border: 1px #000123 solid;
-  flex: 98;
+  /* border: 1px #000123 solid; */
+  flex: 1;
   width: 100%;
   /* height: 90vh; */
-  /* height: 100%; */
   
   display: flex;
   flex-direction: column;
@@ -87,22 +79,58 @@ const Date = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-
-const AllCourtInfo = styled.div`
-  border: 1px #000123 solid;
+const CourtInfo = styled.div`
+  /* border: 1px #000123 solid; */
   flex: 94;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   
   display: flex;
-  /* justify-content: center;
-  align-items: center; */ /* center로 하면 x-축 overflow 적용시 tennis1 짤림 */
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   overflow-x: scroll;
 `;
-const OneCourtInfo = styled.div`
+const CourtScheme = styled.div`
+  border: 1px #000123 solid;
+  width: 100%;
+  /* width: 100vw; */
+  height: 5vh;
+
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  flex-direction: row;
+`;
+const Court = styled.div`
+  border: 1px #000123 solid;
+  width: 100%;
+  /* width: 100vw; */
+  height: 100%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const AllCourtSchedule = styled.div`
+  /* border: 1px #000123 solid; */
+  flex: 94;
+  width: 100%;
+  height: 100vh;
+  
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  flex-direction: row;
+  /* overflow-x: scroll; */
+`;
+const OneCourtSchedule = styled.div`
+  border: 1px #000123 solid;
+  width: 100%;
+  height: 100%;
+`;
+const OneCourtFrame = styled.div`
   flex: 1;
   height: 100%;
   width: 100%;
@@ -110,27 +138,7 @@ const OneCourtInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const CourtScheme = styled.div`
-  border: 1px #000123 solid;
-  flex: 1;
-  width: 100%;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const OneCourtAllTime = styled.div`
-/* background-color: crimson; */
-  border: 1px #000123 solid;
-  flex: 98;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-`;
 const TimeGrid = styled.div`
-  /* background-color: crimson; */
-  /* margin: 2px; */
   border: 1px #000123 solid;
   flex: 1;
   width: 100%;
@@ -138,15 +146,10 @@ const TimeGrid = styled.div`
   display: grid;
   /* grid-template-columns: repeat(4, 1fr); */
   grid-template-columns: repeat(3, 1fr);
-  /* grid-template-columns: repeat(2, 1fr); */
   align-items: center;
   justify-content: center;
 `;
 const TimeBar = styled.div`
-  /* flex: 1; */
-  margin: 1px;
-  background-color: aquamarine;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,18 +159,18 @@ const OpenTime = styled.div`
   background-color: blue;
   border-radius: 50%;
   /* font-size: 1em; */
-  font-size: 2vw, 2vh;
+  /* font-size: 1vw, 1vh; */
   /* text-size-adjust: auto; */
-  /* font-size: xx-small; */
+  font-size: xx-small;
 `;
 const CloseTime = styled.div`
   color: #005666;
   background-color: red;
   border-radius: 50%;
   /* font-size: 1em; */
-  font-size: 2vw, 2vh;
+  /* font-size: 1vw, 1vh; */
   /* text-size-adjust: auto; */
-  /* font-size: xx-small; */
+  font-size: xx-small;
 `;
 
 function Calendar(date) {
@@ -269,53 +272,77 @@ function Calendar(date) {
             </DateScheme>
           </DateInfo>
 
-          <AllCourtInfo> {/* 중앙 코트 정보 */}
-            {
-              allCourtInfo?.data?.map(
-                (courtInfo, idx) => {
-                  return (
-                    <OneCourtInfo key={idx} courtList={courtList}>
-                      <CourtScheme>
-                        {courtList.data[idx]}
-                      </CourtScheme>
-                      <OneCourtAllTime>
-                      {
-                        courtInfo?.date.map(
-                          (oneCourt, idx) => {
-                            return (
-                              oneCourt[1].length !== 0
-                                ?
-                                <TimeGrid key={idx}>
-                                  {
-                                    oneCourt[1]?.map(
-                                      (timeList, idx) => {
-                                        return (
-                                          <TimeBar key={idx}>
-                                            {timeList[1] === '신청'
-                                              ? <OpenTime>{timeList[0]?.replace(/:00/g, "")}</OpenTime>
-                                              : <CloseTime>{timeList[0]?.replace(/:00/g, "")}</CloseTime>}
-                                          </TimeBar>
-                                        );
+          <CourtInfo> {/* 중앙 코트 정보 */}
+            <CourtScheme>
+              {
+                courtList?.data.map(
+                  (crt, idx) => {
+                    return (
+                      <Court key={idx}>
+                        {crt}
+                      </Court>
+                    );
+                  }
+                )
+              }
+            </CourtScheme>
+
+            <AllCourtSchedule>
+              {
+                allCourtInfo?.data?.map(
+                  (courtInfo, idx) => {
+                    return (
+                      <OneCourtSchedule key={idx}>
+                        <OneCourtFrame>
+                          {
+                            courtInfo?.date.map(
+                              (oneCourt, idx) => {
+                                return (
+                                  oneCourt[1].length !== 0
+                                    ?
+                                    <TimeGrid key={idx}>
+                                      {
+                                        oneCourt[1]?.map(
+                                          (timeList, idx) => {
+                                            return (
+                                              <TimeBar key={idx}>
+                                                {timeList[1] === '신청'
+                                                  ? <OpenTime>{timeList[0]?.replace(/:00/g, "")}</OpenTime>
+                                                  : <CloseTime>{timeList[0]?.replace(/:00/g, "")}</CloseTime>}
+                                              </TimeBar>
+                                            );
+                                          }
+                                        )
                                       }
-                                    )
-                                  }
-                                </TimeGrid>
-                                :
-                                <div key={idx} />
-                            );
+                                    </TimeGrid>
+                                    :
+                                    <div key={idx} />
+                                );
+                              }
+                            )
                           }
-                        )
-                      }
-                      </OneCourtAllTime>
-                      <CourtScheme>
-                        {courtList.data[idx]}
-                      </CourtScheme>
-                    </OneCourtInfo>
-                  );
-                }
-              )
-            }
-          </AllCourtInfo>
+                        </OneCourtFrame>
+                      </OneCourtSchedule>
+                    );
+                  }
+                )
+              }
+            </AllCourtSchedule>
+
+            <CourtScheme>
+              {
+                courtList?.data.map(
+                  (crt, idx) => {
+                    return (
+                      <Court key={idx}>
+                        {crt}
+                      </Court>
+                    );
+                  }
+                )
+              }
+            </CourtScheme>
+          </CourtInfo>
 
           <DateInfo> {/* 우측 날짜 열 */}
             <DateScheme>
