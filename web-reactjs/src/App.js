@@ -12,8 +12,6 @@ import Login from './pages/Login';
 import Signin from './pages/Signin';
 import Mypage from './pages/Mypage';
 
-import MainTmp from './pages/MainTmp';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Total = styled.div`
@@ -31,7 +29,6 @@ const Middle = styled.div`
   /* background-color: #00ff00; */
   background-color: aqua;
   width: 100%;
-  /* height: 100%; */
   flex: 1; // for height
   display: flex;
   justify-content: center;
@@ -50,7 +47,6 @@ function App() {
         <Nav />
         <Middle>
           <SideLeftBar />
-          {/* <MainTmp /> */}
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/Login" element={<Login />} />

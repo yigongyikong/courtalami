@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import NoticeBar from '../component/NoticeBar';
 import FilterBar from '../component/FilterBar';
 import Calendar from '../component/Calendar';
-// import MidAd from '../component/MidAd';
 
 const Total = styled.div`
   /* background-color: blue; */
@@ -30,6 +30,7 @@ function Main() {
 
   return (
     <Total>
+      <NoticeBar />
       <FilterBar />
       <Calendar year={nowYear} month={nowMonth} />
       {/* <MidAd></MidAd> */}

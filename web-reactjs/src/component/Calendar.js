@@ -145,28 +145,30 @@ const TimeGrid = styled.div`
 const TimeBar = styled.div`
   /* flex: 1; */
   margin: 1px;
-  background-color: aquamarine;
 
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const OpenTime = styled.div`
-  color: #ff7f00;
-  background-color: blue;
+  color: blue;
+  /* color: #ff7f00; */
+  background-color: greenyellow;
+  /* background-color: green; */
   border-radius: 50%;
   /* font-size: 1em; */
-  font-size: 2vw, 2vh;
-  /* text-size-adjust: auto; */
+  /* font-size: 2vw, 2vh; */
+  text-size-adjust: auto;
   /* font-size: xx-small; */
 `;
 const CloseTime = styled.div`
-  color: #005666;
-  background-color: red;
+  color: red;
+  /* color: #005666; */
+  /* background-color: blanchedalmond; */
   border-radius: 50%;
   /* font-size: 1em; */
-  font-size: 2vw, 2vh;
-  /* text-size-adjust: auto; */
+  /* font-size: 1vw, 1vh; */
+  text-size-adjust: auto;
   /* font-size: xx-small; */
 `;
 
@@ -175,6 +177,7 @@ function Calendar(date) {
   const [courtList, setCourtList] = useState();
   const [oneCourtInfo, setOneCourtInfo] = useState({});
   const [allCourtInfo, setAllCourtInfo] = useState({});
+  const [maxCourtCnt, setMaxCourtCnt] = useState(0);
 
   const { selectedCourt } = useSelectedCourtStore();
 
@@ -221,7 +224,7 @@ function Calendar(date) {
         const response = await axios.post(`http://localhost:38080/${selectedCourt}AllCourtInfo`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
-        });
+        })
 
         setAllCourtInfo(response);
         return response;
@@ -230,9 +233,26 @@ function Calendar(date) {
       }
     }
 
+    const fetchMaxCourtCnt = async (thisYear, thisMonth) => {
+      try {
+        setMaxCourtCnt();
+
+        const response = await axios.post(`http://localhost:38080/${selectedCourt}MaxCourtCnt`, {
+          "thisYear": thisYear,
+          "thisMonth": thisMonth,
+        })
+        setMaxCourtCnt(response.data);
+        return response.data;
+
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     fetchCourtList();
     fetchOneCourtInfo(date.year, date.month, "tennis1");
     fetchAllCourtInfo(date.year, date.month);
+    fetchMaxCourtCnt(date.year, date.month);
 
   }, [selectedCourt, date]);
 
@@ -279,33 +299,51 @@ function Calendar(date) {
                         {courtList.data[idx]}
                       </CourtScheme>
                       <OneCourtAllTime>
-                      {
-                        courtInfo?.date.map(
-                          (oneCourt, idx) => {
-                            return (
-                              oneCourt[1].length !== 0
-                                ?
-                                <TimeGrid key={idx}>
-                                  {
-                                    oneCourt[1]?.map(
-                                      (timeList, idx) => {
-                                        return (
-                                          <TimeBar key={idx}>
-                                            {timeList[1] === '신청'
-                                              ? <OpenTime>{timeList[0]?.replace(/:00/g, "")}</OpenTime>
-                                              : <CloseTime>{timeList[0]?.replace(/:00/g, "")}</CloseTime>}
-                                          </TimeBar>
-                                        );
-                                      }
-                                    )
-                                  }
-                                </TimeGrid>
-                                :
-                                <div key={idx} />
-                            );
-                          }
-                        )
-                      }
+                        {
+                          courtInfo?.date.map(
+                            (oneCourt, idx) => {
+
+                              let addEmptyTimeBar = maxCourtCnt - oneCourt[1].length;
+                              let emptyBarArr = [];
+                              for (let i = 0; i < addEmptyTimeBar; i++) {
+                                emptyBarArr.push(i);
+                              }
+
+                              return (
+                                oneCourt[1].length !== 0
+                                  ?
+                                  <TimeGrid key={idx}>
+                                    {
+                                      oneCourt[1]?.map(
+                                        (timeList, idx) => {
+                                          return (
+                                            <TimeBar key={idx}>
+                                              {timeList[1] === '신청'
+                                                ? <OpenTime>{timeList[0]?.replace(/:00/g, "")}</OpenTime>
+                                                : <CloseTime>{timeList[0]?.replace(/:00/g, "")}</CloseTime>}
+                                            </TimeBar>
+                                          );
+                                        }
+                                      )
+                                    }
+                                    {
+                                      emptyBarArr?.map(
+                                        (dummyTimeList, idx) => {
+                                          return (
+                                            <TimeBar key={idx}>
+                                              <CloseTime>00-00</CloseTime>
+                                            </TimeBar>
+                                          )
+                                        }
+                                      )
+                                    }
+                                  </TimeGrid>
+                                  :
+                                  <div key={idx} />
+                              );
+                            }
+                          )
+                        }
                       </OneCourtAllTime>
                       <CourtScheme>
                         {courtList.data[idx]}
