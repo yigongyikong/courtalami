@@ -16,7 +16,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Total = styled.div`
   /* background-color: #008800; */
-  background-color: yellow;
+  /* background-color: yellow; */
   width: 100%;
   height: 100%;
   display: flex;
@@ -27,7 +27,7 @@ const Total = styled.div`
 
 const Middle = styled.div`
   /* background-color: #00ff00; */
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 100%;
   flex: 1; // for height
   display: flex;

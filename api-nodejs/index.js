@@ -4,6 +4,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
 
+const notice = require('../api-google/downloaded/notice.json');
+
+const aucSaemulCourtList = ["테니스장1", "테니스장2", "테니스장3", "테니스장4", "테니스장5", "테니스장6", "테니스장7", "테니스장8"];
 const aucSaemulCourts = ["tennis1", "tennis2", "tennis3", "tennis4", "tennis5", "tennis6", "tennis7", "tennis8"];
 
 const aucSaemulCourtPageCode = {
@@ -65,6 +68,7 @@ const aucSaemulCourtPageCode = {
     ], // https://www.auc.or.kr/reservation/program/rental/calendarView?menuLevel=2&menuNo=371&year=2023&month=8&types=8&flag=14
 }
 
+const aucSeozoCourtList = ["테니스장1", "테니스장2", "테니스장3", "테니스장4"];
 const aucSeozoCourts = ["tennis1", "tennis2", "tennis3", "tennis4"];
 
 const aucSeozoCourtPageCode = {
@@ -98,9 +102,20 @@ const aucSeozoCourtPageCode = {
     ], // https://www.auc.or.kr/reservation/program/rental/calendarView?menuLevel=2&menuNo=371&year=2023&month=12&types=9&flag=07
 }
 
+// 미로그인
 // const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendar?menuLevel=2&menuNo=371&';
 const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendarView?menuLevel=2&menuNo=371&';
+
+// 로그인 후 코트장 정보
 // https://www.auc.or.kr/reservation/program/rental/calendar?types=9&flag=04&year=2024&month=2&menuLevel=2&menuNo=351
+
+
+// 로그인 후, 코트장 예약 페이지 | 서조체육시설, 테니스장2 
+// https://www.auc.or.kr/reservation/program/rental/create?types=9&flag=05&year=2024&month=1&schDate=20240124&startTime=1000&endTime=1100&menuLevel=2&menuNo=351
+
+// 로그인 후, 코트장 예약 페이지 | 새물공원, 테니스장6
+// https://www.auc.or.kr/reservation/program/rental/create?types=8&flag=12&year=2024&month=1&schDate=20240123&startTime=1300&endTime=1400&menuLevel=2&menuNo=351
+
 /**
  * 함수 정의 : Court 정보를 제공하는 API 서버
  */
@@ -113,9 +128,12 @@ async function CourtServer() {
         res.json({ message: 'Hello Courts!' });
     });
 
+    app.get('/Notice', async (req, res) => {
+        res.status(200).json(notice);
+    });
 
     app.get('/SaemulCourtList', async (req, res) => {
-        res.status(200).json(aucSaemulCourts);
+        res.status(200).json(aucSaemulCourtList);
     });
 
     app.post('/SaemulOneCourtInfo', async (req, res) => {
@@ -158,7 +176,7 @@ async function CourtServer() {
     });
 
     app.get('/SeozoCourtList', async (req, res) => {
-        res.status(200).json(aucSeozoCourts);
+        res.status(200).json(aucSeozoCourtList);
     });
 
     app.post('/SeozoOneCourtInfo', async (req, res) => {
@@ -206,7 +224,7 @@ async function CourtServer() {
 
 CourtServer();
 
-
+// https://www.auc.or.kr/reservation/program/rental/create?types=9&flag=05&year=2024&month=1&schDate=20240124&startTime=1000&endTime=1100&menuLevel=2&menuNo=351
 const crawlingAucCourtOneInfo = async (thisYear, thisMonth, court, aucCourtPageCode) => {
 
     let resultJson = {}; // 결과 값을 저장할 객체
@@ -249,47 +267,27 @@ const crawlingAucCourtAllInfo = async (thisYear, thisMonth, aucCourtList, aucCou
     let resultTotArray = []; // resultJson 값 전체를 저장할 배열
     let resultJson = {}; // 결과 값을 저장할 객체
 
-    /*
-    return aucCourtList.map( async (court, idx) => {
+    aucCourtList.map( (court, idx) => {
+        resultTotArray.push(crawlingAucCourtOneInfo(thisYear, thisMonth, court, aucCourtPageCode))
+    } )
 
-        // console.log(court);
+    allResult = Promise.all( resultTotArray )
 
-        const resp = await axios.get(
-            // `${aucComnLink + 'year=' + timeRlt.nowYear + '&month=' + timeRlt.nowMonth + '&types=' + aucSaemulCourtPageCode['tennis1'][0].types + '&flag=' + aucSaemulCourtPageCode['tennis1'][0].flag}`
-            // `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucSaemulCourtPageCode[court][0].types + '&flag=' + aucSaemulCourtPageCode[court][0].flag}`
-            `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucCourtPageCode[court][0].types + '&flag=' + aucCourtPageCode[court][0].flag}`
-        ); // thisYear년 thisMonth월에 court page의 raw data
-    
-        const $ = cheerio.load(resp.data);
-    
-        const dateCalenderBd = $('tbody');
-        let tbodyDataFromDateCalenderBd = [];
-        dateCalenderBd.find('tr > td').each((idx, el) => {
-            tbodyDataFromDateCalenderBd.push(dataFiltering($(el).text().trim())); // .trim() : string의 맨 좌우 빈칸(공백)을 제거한다.
-        }).toArray();
-    
-        let dateNschedule = [];
-        tbodyDataFromDateCalenderBd.map((el) => {
-            if (!(el.length === 0)) dateNschedule.push(el);
-        });
-    
-        resultJson.date = [];
-    
-        dateNschedule.map((el, idx) => {
-    
-            if (idx < 9) {
-                resultJson.date[idx] = [el.substring(0, 1).trim(), parseToTimeStateArray(el.substring(1))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-            } else {
-                resultJson.date[idx] = [el.substring(0, 2).trim(), parseToTimeStateArray(el.substring(2))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-            }
-        });
+    // allResult = Promise.all([ crawlingAucCourtOneInfo(thisYear, thisMonth, aucCourtList[0], aucCourtPageCode), 
+    //     crawlingAucCourtOneInfo(thisYear, thisMonth, aucCourtList[1], aucCourtPageCode), 
+    //     crawlingAucCourtOneInfo(thisYear, thisMonth, aucCourtList[2], aucCourtPageCode), ])
 
-        console.log(resultJson);
-        resultTotArray[court] = resultJson;
-        console.log(resultJson);
-        return resultTotArray;    
-    });
-    */
+    // console.log(allResult);
+
+    return allResult;
+}
+
+
+
+
+const crawlingAucCourtAllInfoSyncBak = async (thisYear, thisMonth, aucCourtList, aucCourtPageCode) => {
+    let resultTotArray = []; // resultJson 값 전체를 저장할 배열
+    let resultJson = {}; // 결과 값을 저장할 객체    
 
     for (let i = 0; i < aucCourtList.length; i++) {
 
@@ -330,99 +328,6 @@ const crawlingAucCourtAllInfo = async (thisYear, thisMonth, aucCourtList, aucCou
 
     return resultTotArray;
 }
-
-/*
-const crawlingAucCourtTmpAllInfo = async (thisYear, thisMonth, aucCourtList, aucCourtPageCode) => {
-    let resultTotArray = []; // resultJson 값 전체를 저장할 배열
-    let resultJson = {}; // 결과 값을 저장할 객체
-
-    const requests = aucCourtList.map( async (court, idx) => {
-
-        // console.log(court);
-
-        const resp = await axios.get(
-            // `${aucComnLink + 'year=' + timeRlt.nowYear + '&month=' + timeRlt.nowMonth + '&types=' + aucSaemulCourtPageCode['tennis1'][0].types + '&flag=' + aucSaemulCourtPageCode['tennis1'][0].flag}`
-            // `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucSaemulCourtPageCode[court][0].types + '&flag=' + aucSaemulCourtPageCode[court][0].flag}`
-            `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucCourtPageCode[court][0].types + '&flag=' + aucCourtPageCode[court][0].flag}`
-        ); // thisYear년 thisMonth월에 court page의 raw data
-    
-        const $ = cheerio.load(resp.data);
-    
-        const dateCalenderBd = $('tbody');
-        let tbodyDataFromDateCalenderBd = [];
-        dateCalenderBd.find('tr > td').each((idx, el) => {
-            tbodyDataFromDateCalenderBd.push(dataFiltering($(el).text().trim())); // .trim() : string의 맨 좌우 빈칸(공백)을 제거한다.
-        }).toArray();
-    
-        let dateNschedule = [];
-        tbodyDataFromDateCalenderBd.map((el) => {
-            if (!(el.length === 0)) dateNschedule.push(el);
-        });
-    
-        resultJson.date = [];
-    
-        dateNschedule.map((el, idx) => {
-    
-            if (idx < 9) {
-                resultJson.date[idx] = [el.substring(0, 1).trim(), parseToTimeStateArray(el.substring(1))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-            } else {
-                resultJson.date[idx] = [el.substring(0, 2).trim(), parseToTimeStateArray(el.substring(2))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-            }
-        });
-
-        // console.log(resultJson);
-        resultTotArray[court] = resultJson;
-        // console.log(resultJson);
-        return resultTotArray;    
-    });
-    
-    // for (let i = 0; i < aucCourtList.length; i++) {
-
-    //     let court = aucCourtList[i];
-    //     console.log(court);
-
-    //     const resp = await axios.get(
-    //         // `${aucComnLink + 'year=' + timeRlt.nowYear + '&month=' + timeRlt.nowMonth + '&types=' + aucSaemulCourtPageCode['tennis1'][0].types + '&flag=' + aucSaemulCourtPageCode['tennis1'][0].flag}`
-    //         // `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucSaemulCourtPageCode[court][0].types + '&flag=' + aucSaemulCourtPageCode[court][0].flag}`
-    //         `${aucComnLink + 'year=' + thisYear + '&month=' + thisMonth + '&types=' + aucCourtPageCode[court][0].types + '&flag=' + aucCourtPageCode[court][0].flag}`
-    //     ); // thisYear년 thisMonth월에 court page의 raw data
-
-    //     const $ = cheerio.load(resp.data);
-
-    //     const dateCalenderBd = $('tbody');
-    //     let tbodyDataFromDateCalenderBd = [];
-    //     dateCalenderBd.find('tr > td').each((idx, el) => {
-    //         tbodyDataFromDateCalenderBd.push(dataFiltering($(el).text().trim())); // .trim() : string의 맨 좌우 빈칸(공백)을 제거한다.
-    //     }).toArray();
-
-    //     let dateNschedule = [];
-    //     tbodyDataFromDateCalenderBd.map((el) => {
-    //         if (!(el.length === 0)) dateNschedule.push(el);
-    //     });
-
-    //     resultJson.date = [];
-
-    //     dateNschedule.map((el, idx) => {
-
-    //         if (idx < 9) {
-    //             resultJson.date[idx] = [el.substring(0, 1).trim(), parseToTimeStateArray(el.substring(1))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-    //         } else {
-    //             resultJson.date[idx] = [el.substring(0, 2).trim(), parseToTimeStateArray(el.substring(2))]; // .substring(#1, #2) : #1~#2번째 인덱스의 string만 추출
-    //         }
-    //     });
-
-    //     // console.log(resultJson);
-    //     // resultTotArray[court] = resultJson;
-    //     resultTotArray.push(resultJson);
-    // }
-
-
-
-    console.log(resultTotArray);
-    // return resultTotArray;
-    return await Promise.all(requests);
-}
-*/
 
 
 

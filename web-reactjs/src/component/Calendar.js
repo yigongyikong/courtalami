@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import useSelectedCourtStore from '../stores/selectedCourt';
+import { courtMapper } from '../courtName/courtMapper';
 
 const Total = styled.div`
   border: 1px #000123 solid;
@@ -152,24 +153,20 @@ const TimeBar = styled.div`
 `;
 const OpenTime = styled.div`
   color: blue;
-  /* color: #ff7f00; */
   background-color: greenyellow;
-  /* background-color: green; */
-  border-radius: 50%;
-  /* font-size: 1em; */
-  /* font-size: 2vw, 2vh; */
+  border-radius: 30%;
   text-size-adjust: auto;
-  /* font-size: xx-small; */
+  max-width: 65px;
+  max-height: 19px;
+  overflow-y: scroll;
 `;
 const CloseTime = styled.div`
   color: red;
-  /* color: #005666; */
-  /* background-color: blanchedalmond; */
-  border-radius: 50%;
-  /* font-size: 1em; */
-  /* font-size: 1vw, 1vh; */
+  border-radius: 30%;
   text-size-adjust: auto;
-  /* font-size: xx-small; */
+  max-width: 65px;
+  max-height: 19px;
+  overflow-y: scroll;
 `;
 
 function Calendar(date) {
@@ -256,11 +253,17 @@ function Calendar(date) {
 
   }, [selectedCourt, date]);
 
+
+  // console.log(courtMapper["Saemul"])
+
+
   return (
     <Total>
       <Table>
         <TableInfo>  {/* 상단 날짜 및 코트장 이름 */}
-          {oneCourtInfo?.data?.thisYear}년 {oneCourtInfo?.data?.thisMonth}월 {oneCourtInfo?.data?.courtName}-코트장
+          <OpenTime>신청-가능</OpenTime>
+          {oneCourtInfo?.data?.thisYear}년 {oneCourtInfo?.data?.thisMonth}월 {courtMapper[`${oneCourtInfo?.data?.courtName}`]}-코트장
+          <CloseTime>신청-불가</CloseTime>
         </TableInfo>
 
         <TableContents>
@@ -294,7 +297,7 @@ function Calendar(date) {
               allCourtInfo?.data?.map(
                 (courtInfo, idx) => {
                   return (
-                    <OneCourtInfo key={idx} courtList={courtList}>
+                    <OneCourtInfo key={idx}>
                       <CourtScheme>
                         {courtList.data[idx]}
                       </CourtScheme>
@@ -319,8 +322,12 @@ function Calendar(date) {
                                           return (
                                             <TimeBar key={idx}>
                                               {timeList[1] === '신청'
-                                                ? <OpenTime>{timeList[0]?.replace(/:00/g, "")}</OpenTime>
-                                                : <CloseTime>{timeList[0]?.replace(/:00/g, "")}</CloseTime>}
+                                                ? <OpenTime>
+                                                  <a href='https://www.auc.or.kr/reservation/program/rental/calendar?menuLevel=2&menuNo=371&'>
+                                                    {timeList[0]?.replace(/:00/g, "")}
+                                                  </a>
+                                                </OpenTime>
+                                                : <CloseTime> {timeList[0]?.replace(/:00/g, "")} </CloseTime>}
                                             </TimeBar>
                                           );
                                         }
