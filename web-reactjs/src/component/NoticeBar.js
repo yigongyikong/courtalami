@@ -10,11 +10,14 @@ const Total = styled.div`
   justify-content: center;
   align-items: center;
 
+  color: beige;
+  font-weight: bold;
+
   position: fixed;
   top: 1px;
 
   transform: translateX(100%);
-  animation: scroll-left 10s linear infinite; /* 키프레임 이름, 시간, 반응 속도, 반복여부 */
+  animation: scroll-left 15s linear infinite; /* 키프레임 이름, 시간, 반응 속도, 반복여부 */
 
   @keyframes scroll-left {
 	  0% {transform: translateX(-80%);}

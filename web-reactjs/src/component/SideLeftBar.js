@@ -4,18 +4,32 @@ import styled from 'styled-components';
 const Total = styled.div`
   /* background-color: #000044; */
   flex: 1;
-
-  background-color: burlywood;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
+
+const GoogleAdsense = styled.div`
+  border: 1px #000123 solid;
+
+  flex: 1;
+`
+
+const CoupangPartners = styled.div`
+  border: 1px #000123 solid;
+
+  flex: 1;
+`
 
 function SideLeftBar() {
   return (
-    <Total>SideLeftBar</Total>
+    <Total>
+      <GoogleAdsense></GoogleAdsense>
+      <CoupangPartners></CoupangPartners>
+    </Total>
   )
 }
 

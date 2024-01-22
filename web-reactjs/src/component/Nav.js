@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from '../assets/courtAlami1.jpeg';
+import logo from '../assets/courtAlami1Nobg.png';
 import times from '../utils/times';
 import useSelectedCourtStore from '../stores/selectedCourt';
+
+import NavBack from '../assets/green1.jpg';
 
 const Total = styled.div`
   /* background-color: #880000; */
   /* background-color: coral; */
+  background-size: 114px;
+  background-image: url(${NavBack});
+  background-repeat: repeat-x;
+  opacity: 90%;
   width: 100%;
   height: 57px;
   display: flex;
@@ -30,6 +36,9 @@ const UpdateTime = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+
+   color: beige;
+   font-weight: bold;
 `
 
 const LoginSignin = styled.div`
@@ -56,7 +65,7 @@ function Nav() {
 
         fetchUpdateTime();
     }, [selectedCourt])
-
+    
     return (
         <Total>
             <Logo>
