@@ -17,39 +17,45 @@ const Total = styled.div`
   top: 1px;
 
   transform: translateX(100%);
-  animation: scroll-left 15s linear infinite; /* 키프레임 이름, 시간, 반응 속도, 반복여부 */
+  animation: scroll-right 15s linear infinite; /* 키프레임 이름, 시간, 반응 속도, 반복여부 */
 
-  @keyframes scroll-left {
-	  0% {transform: translateX(-80%);}
-	  100% {transform: translateX(80%);}
+  @keyframes scroll-right {
+	  0% {transform: translateX(80%);}
+	  100% {transform: translateX(-80%);}
 	}
 `
 
 function NoticeBar() {
-  const [notice, setNotice] = useState();
+  const [notices, setNotices] = useState();
+  const [notyIdx, setNotyIdx] = useState(0);
 
   useEffect(() => {
     const fetchNotice = async () => {
       try {
-        setNotice();
-        const response = await axios.get(`http://localhost:38080/Notice`, {
-        });
+        setNotices();
+        const response = await axios.get(`http://localhost:38080/Notice`, {});
 
-        // console.log(response?.data[0]?.message);
-        setNotice(response?.data[0]?.message);
+        setNotices(response?.data);
+        // setNotices("점검중");
       } catch (e) {
         console.log(e);
       }
     }
 
     fetchNotice();
-  }, [])
+  }, []);
 
-  // console.log(notice.data);
+  useEffect(() => {
+    setInterval(() => {
+      setNotyIdx( Number(notyIdx)+1 );
+    }, 15000)
+  });
 
+// {/* {notices[notyIdx]?.message} */}
   return (
     <Total>
-      {notice}
+      {notices?.[notyIdx%3]?.message}
+      {/* 점검중 */}
     </Total>
   )
 }
