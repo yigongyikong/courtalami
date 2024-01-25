@@ -122,7 +122,13 @@ const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendarVi
 async function CourtServer() {
     const app = express();
     app.use(bodyParser.json());
-    app.use(cors());
+    const corsOptions = {
+        origin: [
+            "http://localhost:38080",
+            "https://15.164.232.155:38080",
+        ]
+    }
+    app.use(cors(corsOptions));
 
     app.get('/', (req, res) => {
         res.json({ message: 'Hello Courts!' });
