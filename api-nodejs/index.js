@@ -125,7 +125,7 @@ async function CourtServer() {
     const corsOptions = {
         origin: [
             "http://localhost:38080",
-            "https://15.164.232.155:38080",
+            "http://15.164.232.155:38080",
         ]
     }
     app.use(cors(corsOptions));
