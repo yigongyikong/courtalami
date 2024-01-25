@@ -94,7 +94,7 @@ const AllCourtInfo = styled.div`
   border: 1px #000123 solid;
   flex: 94;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   
   display: flex;
   /* justify-content: center;
@@ -184,7 +184,8 @@ function Calendar(date) {
         setCourtList();
         // const response = await axios.get('http://localhost:38080/SaemulCourtList', {
         // const response = await axios.get('http://localhost:38080/SeozoCourtList', {
-        const response = await axios.get(`http://localhost:38080/${selectedCourt}CourtList`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}CourtList`, {
+        // const response = await axios.get(`http://localhost:38080/${selectedCourt}CourtList`, {
         });
 
         setCourtList(response);
@@ -199,7 +200,8 @@ function Calendar(date) {
 
         // const response = await axios.post('http://localhost:38080/SaemulOneCourtInfo', {
         // const response = await axios.post('http://localhost:38080/SeozoOneCourtInfo', {
-        const response = await axios.post(`http://localhost:38080/${selectedCourt}OneCourtInfo`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}OneCourtInfo`, {
+        // const response = await axios.post(`http://localhost:38080/${selectedCourt}OneCourtInfo`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
           "court": court
@@ -218,7 +220,8 @@ function Calendar(date) {
 
         // const response = await axios.post('http://localhost:38080/SaemulAllCourtInfo', {
         // const response = await axios.post('http://localhost:38080/SeozoAllCourtInfo', {
-        const response = await axios.post(`http://localhost:38080/${selectedCourt}AllCourtInfo`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}AllCourtInfo`, {
+        // const response = await axios.post(`http://localhost:38080/${selectedCourt}AllCourtInfo`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
         })
@@ -234,7 +237,8 @@ function Calendar(date) {
       try {
         setMaxCourtCnt();
 
-        const response = await axios.post(`http://localhost:38080/${selectedCourt}MaxCourtCnt`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}MaxCourtCnt`, {
+        // const response = await axios.post(`http://localhost:38080/${selectedCourt}MaxCourtCnt`, {
           "thisYear": thisYear,
           "thisMonth": thisMonth,
         })
@@ -250,7 +254,6 @@ function Calendar(date) {
     fetchOneCourtInfo(date.year, date.month, "tennis1");
     fetchAllCourtInfo(date.year, date.month);
     fetchMaxCourtCnt(date.year, date.month);
-
   }, [selectedCourt, date]);
 
 

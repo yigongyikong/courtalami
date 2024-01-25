@@ -9,6 +9,7 @@
     "axios": "^1.6.2",
     "cheerio": "^1.0.0-rc.12",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.0",

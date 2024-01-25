@@ -33,7 +33,9 @@ function NoticeBar() {
     const fetchNotice = async () => {
       try {
         setNotices();
-        const response = await axios.get(`http://localhost:38080/Notice`, {});
+        
+        const response = await axios.get(`${process.env.REACT_APP_API_NODEJS_EP}/Notice`, {});
+        // const response = await axios.get(`http://localhost:38080/Notice`, {});
 
         setNotices(response?.data);
         // setNotices("점검중");
@@ -51,11 +53,9 @@ function NoticeBar() {
     }, 15000)
   });
 
-// {/* {notices[notyIdx]?.message} */}
   return (
     <Total>
       {notices?.[notyIdx%3]?.message}
-      {/* 점검중 */}
     </Total>
   )
 }
