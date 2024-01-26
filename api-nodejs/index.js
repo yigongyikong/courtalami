@@ -124,17 +124,7 @@ async function CourtServer() {
     app.use(bodyParser.json());
     const corsOptions = {
         origin: [
-            "http://localhost:38080",
-            "http://15.164.232.155",
-            // "http://15.164.232.155:38080/Notice",
-            // "http://15.164.232.155:38080/SaemulCourtList",
-            // "http://15.164.232.155:38080/SaemulOneCourtInfo",
-            // "http://15.164.232.155:38080/SaemulAllCourtInfo",
-            // "http://15.164.232.155:38080/SaemulMaxCourtCnt",
-            // "http://15.164.232.155:38080/SeozoCourtList",
-            // "http://15.164.232.155:38080/SeozoOneCourtInfo",
-            // "http://15.164.232.155:38080/SeozoAllCourtInfo",
-            // "http://15.164.232.155:38080/SeozoMaxCourtCnt",
+            "http://courtalami.co.kr.s3-website.ap-northeast-2.amazonaws.com/",
         ]
     }
     app.use(cors(corsOptions));
