@@ -125,7 +125,7 @@ async function CourtServer() {
     const corsOptions = {
         origin: [
             "http://localhost:38080",
-            "http://15.164.232.155:38080",
+            "http://15.164.232.155",
             // "http://15.164.232.155:38080/Notice",
             // "http://15.164.232.155:38080/SaemulCourtList",
             // "http://15.164.232.155:38080/SaemulOneCourtInfo",
