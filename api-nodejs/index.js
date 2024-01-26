@@ -130,14 +130,20 @@ async function CourtServer() {
     app.use(cors(corsOptions));
 
     app.get('/', (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.json({ message: 'Hello Courts!' });
     });
 
     app.get('/Notice', async (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(notice);
     });
 
     app.get('/SaemulCourtList', async (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(aucSaemulCourtList);
     });
 
@@ -153,6 +159,8 @@ async function CourtServer() {
         resultJson.courtName = "Saemul";
         resultJson.courtNum = court;
 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(resultJson);
     });
 
@@ -161,6 +169,8 @@ async function CourtServer() {
         let thisMonth = req.body.thisMonth; // 조회 월
         let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(resultJson);
     });
 
@@ -177,10 +187,14 @@ async function CourtServer() {
             }
         )
 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(maxTimeCnt);
     });
 
     app.get('/SeozoCourtList', async (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(aucSeozoCourtList);
     });
 
@@ -196,6 +210,8 @@ async function CourtServer() {
         resultJson.courtName = "Seozo";
         resultJson.courtNum = court;
 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(resultJson);
     });
 
@@ -204,6 +220,8 @@ async function CourtServer() {
         let thisMonth = req.body.thisMonth; // 조회 월
         let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(resultJson);
     });
 
@@ -218,6 +236,9 @@ async function CourtServer() {
                 if ( maxTimeCnt < courtInfo[1].length ) maxTimeCnt = courtInfo[1].length;
             }
         )
+
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.status(200).json(maxTimeCnt);
     });
 
