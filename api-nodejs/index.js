@@ -133,7 +133,7 @@ async function CourtServer() {
     app.get('/', (req, res) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "GET");
         console.log('/');
         res.json({ message: 'Hello Courts!' });
     });
@@ -141,7 +141,7 @@ async function CourtServer() {
     app.get('/Notice', async (req, res) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "GET");
         console.log('/Notice', notice);
         res.status(200).json(notice);
     });
@@ -149,7 +149,7 @@ async function CourtServer() {
     app.get('/SaemulCourtList', async (req, res) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "GET");
         console.log('/SaemulCourtList', aucSaemulCourtList);
         res.status(200).json(aucSaemulCourtList);
     });
@@ -168,7 +168,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulOneCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
@@ -180,7 +180,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulAllCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
@@ -200,7 +200,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulMaxCourtCnt', maxTimeCnt);
         res.status(200).json(maxTimeCnt);
     });
@@ -208,7 +208,7 @@ async function CourtServer() {
     app.get('/SeozoCourtList', async (req, res) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "GET");
         console.log('/SeozoCourtList', aucSeozoCourtList);
         res.status(200).json(aucSeozoCourtList);
     });
@@ -227,7 +227,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoOneCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
@@ -239,7 +239,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoAllCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
@@ -258,7 +258,7 @@ async function CourtServer() {
 
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST, GET");
+        res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoMaxCourtCnt', maxTimeCnt);
         res.status(200).json(maxTimeCnt);
     });
