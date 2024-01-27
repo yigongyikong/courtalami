@@ -125,7 +125,8 @@ async function CourtServer() {
     const corsOptions = {
         origin: [
             "http://courtalami.co.kr.s3-website.ap-northeast-2.amazonaws.com/",
-        ]
+        ],
+        credentials: true
     }
     app.use(cors(corsOptions));
 
