@@ -200,12 +200,13 @@ function Calendar(date) {
 
         // const response = await axios.post('http://localhost:38080/SaemulOneCourtInfo', {
         // const response = await axios.post('http://localhost:38080/SeozoOneCourtInfo', {
-        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}OneCourtInfo`, {
-        // const response = await axios.post(`http://localhost:38080/${selectedCourt}OneCourtInfo`, {
-          "thisYear": thisYear,
-          "thisMonth": thisMonth,
-          "court": court
-        });
+        // const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}OneCourtInfo`, {
+        //   "thisYear": thisYear,
+        //   "thisMonth": thisMonth,
+        //   "court": court
+        // });
+
+        const response = await axios.get(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}OneCourtInfo`, {});
 
         setOneCourtInfo(response);
         return response;
@@ -220,11 +221,12 @@ function Calendar(date) {
 
         // const response = await axios.post('http://localhost:38080/SaemulAllCourtInfo', {
         // const response = await axios.post('http://localhost:38080/SeozoAllCourtInfo', {
-        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}AllCourtInfo`, {
-        // const response = await axios.post(`http://localhost:38080/${selectedCourt}AllCourtInfo`, {
-          "thisYear": thisYear,
-          "thisMonth": thisMonth,
-        })
+        // const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}AllCourtInfo`, {
+          // "thisYear": thisYear,
+          // "thisMonth": thisMonth,
+        // })
+
+        const response = await axios.get(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}AllCourtInfo`, {});
 
         setAllCourtInfo(response);
         return response;
@@ -237,11 +239,12 @@ function Calendar(date) {
       try {
         setMaxCourtCnt();
 
-        const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}MaxCourtCnt`, {
-        // const response = await axios.post(`http://localhost:38080/${selectedCourt}MaxCourtCnt`, {
-          "thisYear": thisYear,
-          "thisMonth": thisMonth,
-        })
+        // const response = await axios.post(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}MaxCourtCnt`, {
+        //   "thisYear": thisYear,
+        //   "thisMonth": thisMonth,
+        // })
+
+        const response = await axios.get(`${process.env.REACT_APP_API_NODEJS_EP}/${selectedCourt}MaxCourtCnt`, {});
         setMaxCourtCnt(response.data);
         return response.data;
 
@@ -295,7 +298,7 @@ function Calendar(date) {
             </DateScheme>
           </DateInfo>
 
-          <AllCourtInfo> {/* 중앙 코트 정보 */}
+          <AllCourtInfo class='scroll'> {/* 중앙 코트 정보 */}
             {
               allCourtInfo?.data?.map(
                 (courtInfo, idx) => {
@@ -325,12 +328,12 @@ function Calendar(date) {
                                           return (
                                             <TimeBar key={idx}>
                                               {timeList[1] === '신청'
-                                                ? <OpenTime>
+                                                ? <OpenTime class='scroll'>
                                                   <a href='https://www.auc.or.kr/reservation/program/rental/calendar?menuLevel=2&menuNo=371&'>
                                                     {timeList[0]?.replace(/:00/g, "")}
                                                   </a>
                                                 </OpenTime>
-                                                : <CloseTime> {timeList[0]?.replace(/:00/g, "")} </CloseTime>}
+                                                : <CloseTime class='scroll'> {timeList[0]?.replace(/:00/g, "")} </CloseTime>}
                                             </TimeBar>
                                           );
                                         }
@@ -341,7 +344,7 @@ function Calendar(date) {
                                         (dummyTimeList, idx) => {
                                           return (
                                             <TimeBar key={idx}>
-                                              <CloseTime>00-00</CloseTime>
+                                              <CloseTime class='scroll'>00-00</CloseTime>
                                             </TimeBar>
                                           )
                                         }

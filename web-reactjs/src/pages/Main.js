@@ -30,7 +30,7 @@ function Main() {
   let nowMonth = nowKst.getMonth() + 1; // Get the month, from 0 to 11.
 
   return (
-    <Total>
+    <Total class='scroll'>
       <NoticeBar />
       <FilterBar />
       <Calendar year={nowYear} month={nowMonth} />

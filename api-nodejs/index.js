@@ -122,75 +122,86 @@ const aucComnLink = 'https://www.auc.or.kr/reservation/program/rental/calendarVi
 async function CourtServer() {
     const app = express();
     app.use(bodyParser.json());
-    const corsOptions = {
-        origin: [
-            "http://courtalami.co.kr.s3-website.ap-northeast-2.amazonaws.com/",
-        ],
-        credentials: true
-    }
-    app.use(cors(corsOptions));
+    // const corsOptions = {
+    //     origin: [
+    //         "http://courtalami.co.kr.s3-website.ap-northeast-2.amazonaws.com/",
+    //     ],
+    //     credentials: true
+    // }
+    // app.use(cors(corsOptions));
+    app.use(cors());
+
+    const timeVal = times();
 
     app.get('/', (req, res) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "GET");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "GET");
         console.log('/');
         res.json({ message: 'Hello Courts!' });
     });
 
     app.get('/Notice', async (req, res) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "GET");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "GET");
         console.log('/Notice', notice);
         res.status(200).json(notice);
     });
 
     app.get('/SaemulCourtList', async (req, res) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "GET");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "GET");
         console.log('/SaemulCourtList', aucSaemulCourtList);
         res.status(200).json(aucSaemulCourtList);
     });
 
-    app.post('/SaemulOneCourtInfo', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
-        let court = req.body.court; // 조회 새물 코트
+    app.get('/SaemulOneCourtInfo', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
+        // let court = req.body.court; // 조회 새물 코트
+        // let resultJson = await crawlingAucCourtOneInfo(thisYear, thisMonth, court, aucSaemulCourtPageCode);
 
-        let resultJson = await crawlingAucCourtOneInfo(thisYear, thisMonth, court, aucSaemulCourtPageCode);
+        let resultJson = await crawlingAucCourtOneInfo(timeVal.nowYear, timeVal.nowMonth, "tennis1", aucSaemulCourtPageCode);
 
-        resultJson.thisYear = thisYear;
-        resultJson.thisMonth = thisMonth;
+        // resultJson.thisYear = thisYear;
+        // resultJson.thisMonth = thisMonth;
+        // resultJson.courtName = "Saemul";
+        // resultJson.courtNum = court;
+
+        resultJson.thisYear = timeVal.nowYear;
+        resultJson.thisMonth = timeVal.nowMonth;
         resultJson.courtName = "Saemul";
-        resultJson.courtNum = court;
+        resultJson.courtNum = "tennis1";
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulOneCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
 
-    app.post('/SaemulAllCourtInfo', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
-        let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
+    app.get('/SaemulAllCourtInfo', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
+        // let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
+        let resultJson = await crawlingAucCourtAllInfo(timeVal.nowYear, timeVal.nowMonth, aucSaemulCourts, aucSaemulCourtPageCode);
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulAllCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
 
-    app.post('/SaemulMaxCourtCnt', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
+    app.get('/SaemulMaxCourtCnt', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
+        // let maxTimeCnt = 0;
+        // let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
         let maxTimeCnt = 0;
-
-        let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSaemulCourts, aucSaemulCourtPageCode);
+        let resultJson = await crawlingAucCourtAllInfo(timeVal.nowYear, timeVal.nowMonth, aucSaemulCourts, aucSaemulCourtPageCode);
 
         resultJson[0].date.map(
             (courtInfo, idx) => {
@@ -198,57 +209,64 @@ async function CourtServer() {
             }
         )
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SaemulMaxCourtCnt', maxTimeCnt);
         res.status(200).json(maxTimeCnt);
     });
 
     app.get('/SeozoCourtList', async (req, res) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "GET");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "GET");
         console.log('/SeozoCourtList', aucSeozoCourtList);
         res.status(200).json(aucSeozoCourtList);
     });
 
-    app.post('/SeozoOneCourtInfo', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
-        let court = req.body.court; // 조회 새물 코트
+    app.get('/SeozoOneCourtInfo', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
+        // let court = req.body.court; // 조회 새물 코트
+        // let resultJson = await crawlingAucCourtOneInfo(thisYear, thisMonth, court, aucSeozoCourtPageCode);
+        let resultJson = await crawlingAucCourtOneInfo(timeVal.nowYear, timeVal.nowMonth, "tennis1", aucSeozoCourtPageCode);
 
-        let resultJson = await crawlingAucCourtOneInfo(thisYear, thisMonth, court, aucSeozoCourtPageCode);
+        // resultJson.thisYear = thisYear;
+        // resultJson.thisMonth = thisMonth;
+        // resultJson.courtName = "Seozo";
+        // resultJson.courtNum = court;
 
-        resultJson.thisYear = thisYear;
-        resultJson.thisMonth = thisMonth;
+        resultJson.thisYear = timeVal.nowYear;
+        resultJson.thisMonth = timeVal.nowMonth;
         resultJson.courtName = "Seozo";
-        resultJson.courtNum = court;
+        resultJson.courtNum = "tennis1";
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoOneCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
 
-    app.post('/SeozoAllCourtInfo', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
-        let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
+    app.get('/SeozoAllCourtInfo', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
+        // let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
+        let resultJson = await crawlingAucCourtAllInfo(timeVal.nowYear, timeVal.nowMonth, aucSeozoCourts, aucSeozoCourtPageCode);
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoAllCourtInfo', resultJson);
         res.status(200).json(resultJson);
     });
 
-    app.post('/SeozoMaxCourtCnt', async (req, res) => {
-        let thisYear = req.body.thisYear; // 조회 년
-        let thisMonth = req.body.thisMonth; // 조회 월
+    app.get('/SeozoMaxCourtCnt', async (req, res) => {
+        // let thisYear = req.body.thisYear; // 조회 년
+        // let thisMonth = req.body.thisMonth; // 조회 월
         let maxTimeCnt = 0;
-        let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
+        // let resultJson = await crawlingAucCourtAllInfo(thisYear, thisMonth, aucSeozoCourts, aucSeozoCourtPageCode);
+        let resultJson = await crawlingAucCourtAllInfo(timeVal.nowYear, timeVal.nowMonth, aucSeozoCourts, aucSeozoCourtPageCode);
 
         resultJson[0].date.map(
             (courtInfo, idx) => {
@@ -256,9 +274,9 @@ async function CourtServer() {
             }
         )
 
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header("Access-Control-Allow-Methods", "POST");
+        // res.header("Access-Control-Allow-Origin", "*");
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "POST");
         console.log('/SeozoMaxCourtCnt', maxTimeCnt);
         res.status(200).json(maxTimeCnt);
     });

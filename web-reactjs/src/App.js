@@ -45,7 +45,7 @@ function App() {
     <BrowserRouter>
       <Total>
         <Nav />
-        <Middle>
+        <Middle class='scroll'>
           <SideLeftBar />
           <Routes>
             <Route path="/" element={<Main />} />
