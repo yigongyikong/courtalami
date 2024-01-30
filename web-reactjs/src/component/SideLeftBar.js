@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Total = styled.div`
@@ -25,10 +25,28 @@ const CoupangPartners = styled.div`
 `
 
 function SideLeftBar() {
+
+  useEffect(() => {
+    if (window) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  });
+
   return (
     <Total>
-      <GoogleAdsense></GoogleAdsense>
-      <CoupangPartners></CoupangPartners>
+      <GoogleAdsense>
+        <>
+          <ins class="adsbygoogle"
+            style={{ display: 'block' }}
+            data-ad-client="ca-pub-6911236723814140"
+            data-ad-slot="3643639023"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        </>
+      </GoogleAdsense>
+      <CoupangPartners>
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=752894&template=carousel&trackingCode=AF9292957&subId=&width=67&height=50%&tsource=" width="67" height="50%" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+      </CoupangPartners>
     </Total>
   )
 }
