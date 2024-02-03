@@ -178,6 +178,8 @@ function Calendar(date) {
 
   const { selectedCourt } = useSelectedCourtStore();
 
+  console.log(process.env.REACT_APP_API_NODEJS_EP);
+
   useEffect(() => {
     const fetchCourtList = async () => {
       try {
